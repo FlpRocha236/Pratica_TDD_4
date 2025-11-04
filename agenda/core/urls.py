@@ -1,14 +1,14 @@
 from django.urls import path
-from core.views import login, logout, home, delete_contact, register_contact, edit_contact, show_contact
+from core.views import login, logout, home, delete, cadastrar, atualizar, listar
 
 
 urlpatterns = [
     path('login/', login, name='login'),
     path('logout/', logout, name='logout'),
     path('index/', home, name='index'),
-    path('register_contact/', register_contact , name='register_contact'),
-    path('show_contact/', show_contact, name='show_contact'),
-    path('edit_contact/', edit_contact, name='edit_contact'),
-    path('delete_contact/', delete_contact, name='delete_contact'),
+    path('register_contact/', cadastrar , name='cadastrar_contato'),
+    path('show_contact/', listar, name='listar_contato'),
+    path('edit_contact/', atualizar, name='atualizar_contato'),
+    path('delete_contact/', delete, name='deletar_contato'),
     path('', home,name='home')
 ]

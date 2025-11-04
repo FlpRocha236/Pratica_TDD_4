@@ -30,7 +30,7 @@ def home(request):
     return render(request, 'index.html', context)
 
 @login_required
-def register_contact(request):
+def cadastrar_contato(request):
     context = {}
     if request.method == "POST":
         nome = request.POST.get('nome_completo')
@@ -56,13 +56,13 @@ def register_contact(request):
     return render(request, 'register_contact.html', context)
 
 @login_required
-def show_contact(request):
+def listar_contato(request):
     contacts = Agenda.objects.all().order_by('nome_completo')
     context = {'contacts':contacts}
     return render(request, 'show_contact.html', context)
 
 @login_required
-def edit_contact(request):
+def editar_contato(request):
     context = {}
     contacts = Agenda.objects.all().order_by('id')
     context = {'contacts':contacts}
@@ -104,7 +104,7 @@ def edit_contact(request):
     return render(request, 'edit_contact.html', context)
 
 @login_required
-def delete_contact(request):
+def deletar_contato(request):
     context = {}
     if request.method == "GET":
         contacts = Agenda.objects.all().order_by('id')
