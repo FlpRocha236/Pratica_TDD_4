@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Editar - Práticas TDD 4</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        color: white;
+      }
+      .container-main {
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .card {
+        border-radius: 1rem;
+        background: #f8f9fa;
+        color: #343a40;
+        padding: 2rem;
+        width: 100%;
+        max-width: 600px;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container container-main">
+      <div class="card">
+        <h2>Editar Contato</h2>
+        <form method="POST">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="contact-id" class="form-label">ID</label>
+            <select id="contact-id" name="id" class="form-select" required>
+              <option value="" disabled selected>Selecione um contato</option>
+              {% for contact in contacts %}
+              <option
+                value="{{ contact.id }}"
+                data-nome="{{ contact.nome_completo }}"
+                data-telefone="{{ contact.telefone }}"
+                data-email="{{ contact.email }}"
+                data-observacao="{{ contact.observacao }}"
+              >
+                {{ contact.id }} – {{ contact.nome_completo }}
+              </option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="contact-name" class="form-label">Nome</label>
+            <input
+              id="contact-name"
+              name="nome_completo"
+              type="text"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="contact-phone" class="form-label">Telefone</label>
+            <input
+              id="contact-phone"
+              name="telefone"
+              type="text"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="contact-email" class="form-label">Email</label>
+            <input
+              id="contact-email"
+              name="email"
+              type="email"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="contact-observacao" class="form-label"
+              >Observação</label
+            >
+            <input
+              id="contact-observacao"
+              name="observacao"
+              type="text"
+              class="form-control"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-warning w-100 text-white">
+            Atualizar
+          </button>
+          <a
+            href="{% url 'show_contact' %}"
+            class="btn btn-secondary w-100 mt-2"
+            >Voltar</a
+          >
+        </form>
+
+        {% if success %}
+        <div class="alert alert-success mt-3" role="alert">
+          Contato atualizado com sucesso!
+        </div>
+        {% endif %} {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+          <ul class="mb-0">
+            {% for err in form.non_field_errors %}
+            <li>{{ err }}</li>
+            {% endfor %} {% for field in form %} {% for error in field.errors %}
+            <li>{{ field.label }} {{ error }}</li>
+            {% endfor %} {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            const select = document.getElementById("contact-id");
+            const nameIn = document.getElementById("contact-name");
+            const phoneIn = document.getElementById("contact-phone");
+            const emailIn = document.getElementById("contact-email");
+            const noteIn = document.getElementById("contact-observacao");
+
+            select.addEventListener("change", () => {
+              const opt = select.options[select.selectedIndex];
+              nameIn.value = opt.dataset.nome || "";
+              phoneIn.value = opt.dataset.telefone || "";
+              emailIn.value = opt.dataset.email || "";
+              noteIn.value = opt.dataset.observacao || "";
+            });
+          });
+        </script>
+      </div>
+    </div>
+  </body>
+</html>

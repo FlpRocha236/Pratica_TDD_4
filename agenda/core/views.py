@@ -1,0 +1,79 @@
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from core.forms import LoginForm, AgendaForm
+from core.models import Agenda
+
+def login_view(request):
+    if request.user.is_authenticated:
+        return redirect("home")  
+
+    form = LoginForm(request.POST or None)
+    context = {"form": form}
+
+    if request.method == "POST" and form.is_valid():
+        email = form.cleaned_data['email']
+        password = form.cleaned_data['password']
+
+        
+        try:
+            user_obj = User.objects.get(email=email)
+            user = authenticate(request, username=user_obj.username, password=password)
+        except User.DoesNotExist:
+            user = None
+
+        if user:
+            auth_login(request, user)
+            return redirect("home") 
+        else:
+            context['acesso_negado'] = True 
+
+    return render(request, "login.html", context)
+
+
+def logout_view(request):
+    auth_logout(request)
+    return redirect("login")
+
+
+
+@login_required(login_url="login")
+def home(request):
+    contacts = Agenda.objects.all().order_by("nome_completo")
+    return render(request, "index.html", {"contacts": contacts})
+
+
+
+@login_required(login_url="login")
+def cadastrar(request):
+    form = AgendaForm(request.POST or None)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        return redirect("home")
+    return render(request, "cadastrar.html", {"ModelForm": form})
+
+
+@login_required(login_url="login")
+def atualizar(request, id):
+    agenda = get_object_or_404(Agenda, id=id)
+    form = AgendaForm(request.POST or None, instance=agenda)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        return redirect("home")
+    return render(request, "atualizar.html", {"form": form, "agenda": agenda})
+
+
+
+@login_required(login_url="login")
+def deletar(request, id):
+    agenda = get_object_or_404(Agenda, id=id)
+    if request.method == "POST":
+        agenda.delete()
+        return redirect("home")
+    return render(request, "delete.html", {"agenda": agenda})
+
+@login_required(login_url="login")
+def listar(request):
+    contacts = Agenda.objects.all().order_by("nome_completo")
+    return render(request, "listar.html", {"contacts": contacts})
