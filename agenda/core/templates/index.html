@@ -50,19 +50,19 @@
     <div class="card">
       <h2 class="mb-4">Painel de Ações</h2>
 
-      <a href="#" class="btn btn-primary btn-action">
+      <a href="{% url 'register_contact' %}" class="btn btn-primary btn-action">
         <i class="fas fa-plus me-2"></i>Cadastrar
       </a>
 
-      <a href="#" class="btn btn-secondary btn-action">
+      <a href="{% url 'show_contact' %}" class="btn btn-secondary btn-action">
         <i class="fas fa-list me-2"></i>Listar
       </a>
 
-      <a href="#" class="btn btn-warning btn-action text-white">
+      <a href="{% url 'edit_contact' %}" class="btn btn-warning btn-action text-white">
         <i class="fas fa-edit me-2"></i>Editar
       </a>
 
-      <a href="#" class="btn btn-danger btn-action">
+      <a href="{% url 'delete_contact' %}" class="btn btn-danger btn-action">
         <i class="fas fa-trash-alt me-2"></i>Excluir
       </a>
 

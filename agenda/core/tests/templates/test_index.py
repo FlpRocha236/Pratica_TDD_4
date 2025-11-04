@@ -30,9 +30,9 @@ class HomeGetTest(TestCase):
     def setUp(self):
         self.client = Client()
         new_user = User.objects.create(username='admin',email='aluno@fatec.sp.gov.br')
-        new_user.set_password('123mudar')
+        new_user.set_password('senha1234')
         new_user.save()
-        self.client.login(username="admin", password="123mudar")
+        self.client.login(username="admin", password="senha1234")
         self.resp = self.client.get(r('home'))
         self.resp2 = self.client.get(r('home'),follow=True)
 

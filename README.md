@@ -1,9 +1,6 @@
 # Prática TDD 4
 
-Desafio técnico para os alunos da disciplina "Desenvolvimento Web 3"
-
-
-
+Desafio técnico para os alunos da disciplina "Desenvolvimento Web 3" 
 
 No ambiente Linux:
 
@@ -46,17 +43,16 @@ python manage.py runserver
 
 Crie um superusuário com as seguintes credenciais:
 
-- Username <b>admin</b>:
-- E-mail address <b>seu e-mail institucional</b>:
-- Password <b>fatec</b>:
+- Username `<b>`admin`</b>`:
+- E-mail address `<b>`seu e-mail institucional`</b>`:
+- Password `<b>`fatec`</b>`:
 
 ### Requisitos da Sprint 1
 
 <img src="caso_uso.png">
 
 A expectativa do projeto é que tenha-se uma agenda. O que foi priorizado na primeira sprint foi o sistema de login/logout.
-O login somente pode ocorrer com o e-mail institucional @fatec.sp.gov.br 
-
+O login somente pode ocorrer com o e-mail institucional @fatec.sp.gov.br
 
 <img src="login.png">
 
@@ -74,8 +70,7 @@ Imagem 3: Tela logout
 Agora começa o seu desafio: desenvolver uma agenda de contatos completa com CRUD.
 
 Com base no modelo implementado (ver imagem abaixo), você deve:
-<img src="model.png">
-
+`<img src="model.png">`
 
 ✅ Criar um formulário para o modelo Agenda (pode usar Forms ou ModelForms);
 
@@ -92,7 +87,6 @@ Implementar as seguintes funcionalidades:
 Proteger todas essas funcionalidades para que apenas usuários logados tenham acesso.
 
 Ao final da Sprint 2, o sistema deverá conter um CRUD funcional de contatos em Django.
-
 
 ## Ajustes nos testes / novos testes
 

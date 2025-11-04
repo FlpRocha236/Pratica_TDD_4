@@ -9,9 +9,9 @@ class Login_OK_Test(TestCase):
     def setUp(self):
         self.client = Client()
         new_user = User.objects.create(email='aluno.fatec@fatec.sp.gov.br',username='admin')
-        new_user.set_password('123mudar')
+        new_user.set_password('senha1234')
         new_user.save()
-        data = {'email':'aluno.fatec@fatec.sp.gov.br', 'password':'123mudar'}
+        data = {'email':'aluno.fatec@fatec.sp.gov.br', 'password':'senha1234'}
         self.resp = self.client.post(r('login'), data)
         self.resp2 = self.client.post(r('login'), data, follow=True)
         
@@ -29,7 +29,7 @@ class Login_Fail_Test(TestCase):
         new_user = User.objects.create(email='aluno.fatec@fatec.sp.gov.br',username='admin')
         new_user.set_password('SENHA_ERRADA')
         new_user.save()
-        data = {'username':'admin', 'password':'123mudar'}
+        data = {'username':'admin', 'password':'senha1234'}
         self.resp = self.client.post(r('login'), data)
  
     def test_response(self):
@@ -59,9 +59,9 @@ class Logout_Get_OK_Test(TestCase):
     def setUp(self):
         self.client = Client()
         new_user = User.objects.create(email='aluno.fatec@fatec.sp.gov.br',username='admin')
-        new_user.set_password('123mudar')
+        new_user.set_password('senha1234')
         new_user.save()
-        self.client.login(username="admin", password="123mudar")
+        self.client.login(username="admin", password="senha1234")
         self.resp = self.client.get(r('logout'), follow=True)
 
     def test_response(self):
@@ -75,9 +75,9 @@ class Logout_Post_OK_Test(TestCase):
     def setUp(self):
         self.client = Client()
         new_user = User.objects.create(email='aluno.fatec@fatec.sp.gov.br',username='admin')
-        new_user.set_password('123mudar')
+        new_user.set_password('senha1234')
         new_user.save()
-        self.client.login(username="admin", password="123mudar")
+        self.client.login(username="admin", password="senha1234")
         self.resp = self.client.post(r('logout'))
         
     def test_response(self):
